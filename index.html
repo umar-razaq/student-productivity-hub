@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Productivity Hub</title>
+
+    <!-- FONT -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <!-- MAIN WRAPPER -->
+    <div class="dashboard">
+      <!-- LEFT PANEL -->
+      <div class="left-panel">
+        <!-- HEADER -->
+        <header class="header">
+          <h1>📚 Student Productivity Hub</h1>
+          <p>Tasks • Habits • AI • Progress</p>
+        </header>
+
+        <section class="card quote-top">
+          <h2>💬 Daily Motivation</h2>
+          <p id="quoteText">Loading motivation...</p>
+        </section>
+
+        <!-- TASK SECTION -->
+        <section class="card">
+          <h2>📝 Tasks</h2>
+
+          <div class="input-box">
+            <input type="text" id="taskInput" placeholder="Enter a task..." />
+            <button id="addTaskBtn">Add</button>
+          </div>
+
+          <ul id="taskList"></ul>
+        </section>
+
+        <!-- HABIT SECTION -->
+        <section class="card">
+          <h2>🔁 Habits</h2>
+
+          <div class="input-box">
+            <input type="text" id="habitInput" placeholder="Add a habit..." />
+            <button id="addHabitBtn">Add</button>
+          </div>
+
+          <ul id="habitList"></ul>
+        </section>
+      </div>
+
+      <!-- RIGHT PANEL -->
+      <div class="right-panel">
+        <!-- PROGRESS -->
+        <section class="side-card">
+          <h2>📊 Progress</h2>
+
+          <div class="stats">
+            <div>
+              <h3 id="totalTasks">0</h3>
+              <p>Total Tasks</p>
+            </div>
+
+            <div>
+              <h3 id="completedTasks">0</h3>
+              <p>Completed</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- RESOURCES -->
+        <section class="side-card">
+          <h2>📚 Study Resources</h2>
+
+          <button id="loadResourcesBtn">Load Resources</button>
+
+          <ul id="resourceList"></ul>
+        </section>
+
+        <!-- AI ASSISTANT -->
+        <section class="side-card">
+          <h2>🤖 AI Study Assistant</h2>
+
+          <input
+            type="text"
+            id="aiInput"
+            placeholder="Enter topic (e.g. JavaScript)"
+          />
+          <button id="aiBtn">Generate Plan</button>
+
+          <div id="aiOutput"></div>
+        </section>
+      </div>
+    </div>
+
+    <!-- JS -->
+    <script src="script.js"></script>
+  </body>
+</html>
