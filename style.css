@@ -1,0 +1,15 @@
+body {
+  font-family: Arial, sans-serif;
+}
+
+.card {
+  border-radius: 10px;
+}
+
+.task-card {
+  transition: 0.3s;
+}
+
+.task-card:hover {
+  transform: scale(1.02);
+}
