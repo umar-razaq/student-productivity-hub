@@ -13,7 +13,7 @@ async function fetchAdminTasks() {
     renderAdminTasks(tasks);
     showStatistics(tasks);
   } catch (err) {
-    console.log("Task fetch error:", err);
+    alert("Failed to add habit.");
   }
 }
 
@@ -25,7 +25,7 @@ async function fetchAdminHabits() {
     const habits = await res.json();
     renderAdminHabits(habits);
   } catch (err) {
-    console.log("Habit fetch error:", err);
+    alert("Failed to add habit.");
   }
 }
 
@@ -98,6 +98,9 @@ function renderAdminHabits(habits) {
 }
 
 async function deleteTask(id) {
+  if (!confirm("Are you sure you want to delete this task?")) {
+    return;
+  }
   try {
     const res = await fetch(`${TASK_API}/${id}`, {
       method: "DELETE",
@@ -107,7 +110,7 @@ async function deleteTask(id) {
 
     fetchAdminTasks();
   } catch (err) {
-    console.log("Delete task error:", err);
+    alert("Failed to add habit.");
   }
 }
 
@@ -126,11 +129,14 @@ async function editTask(id) {
 
     fetchAdminTasks();
   } catch (err) {
-    console.log("Edit task error:", err);
+    alert("Failed to add habit.");
   }
 }
 
 async function deleteHabit(id) {
+  if (!confirm("Are you sure you want to delete this habit?")) {
+    return;
+  }
   try {
     const res = await fetch(`${HABIT_API}/${id}`, {
       method: "DELETE",
@@ -140,7 +146,7 @@ async function deleteHabit(id) {
 
     fetchAdminHabits();
   } catch (err) {
-    console.log("Delete habit error:", err);
+    alert("Failed to add habit.");
   }
 }
 
@@ -159,7 +165,7 @@ async function editHabit(id) {
 
     fetchAdminHabits();
   } catch (err) {
-    console.log("Edit habit error:", err);
+    alert("Failed to add habit.");
   }
 }
 

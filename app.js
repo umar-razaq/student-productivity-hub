@@ -28,7 +28,7 @@ async function fetchTasks() {
     allTasks = await res.json();
     renderTasks(allTasks);
   } catch (err) {
-    console.log(err);
+    alert("Failed to add habit.");
     error.classList.remove("d-none");
   } finally {
     loading.classList.add("d-none");
@@ -43,7 +43,7 @@ async function fetchHabits() {
     allHabits = await res.json();
     renderHabits(allHabits);
   } catch (err) {
-    console.log(err);
+    alert("Failed to add habit.");
   }
 }
 
@@ -129,8 +129,7 @@ taskForm.addEventListener("submit", async (e) => {
   const deadlineVal = document.getElementById("deadline").value;
   const descriptionVal = document.getElementById("description").value.trim();
 
-  document
-    .querySelectorAll(".text-danger")
+  document.querySelectorAll(".text-danger")
     .forEach((el) => (el.textContent = ""));
 
   let ok = true;
@@ -139,10 +138,26 @@ taskForm.addEventListener("submit", async (e) => {
     document.getElementById("titleError").textContent = "Required";
     ok = false;
   }
-  if (!categoryVal) ok = false;
-  if (!priorityVal) ok = false;
-  if (!statusVal) ok = false;
-  if (!deadlineVal) ok = false;
+
+  if (!categoryVal) {
+    document.getElementById("categoryError").textContent = "Required";
+    ok = false;
+  }
+
+  if (!priorityVal) {
+    document.getElementById("priorityError").textContent = "Required";
+    ok = false;
+  }
+
+  if (!statusVal) {
+    document.getElementById("statusError").textContent = "Required";
+    ok = false;
+  }
+
+  if (!deadlineVal) {
+    document.getElementById("deadlineError").textContent = "Required";
+    ok = false;
+  }
 
   if (!ok) return;
 
@@ -165,7 +180,7 @@ taskForm.addEventListener("submit", async (e) => {
     taskForm.reset();
     fetchTasks();
   } catch (err) {
-    console.log(err);
+    alert("Failed to add habit.");
     error.classList.remove("d-none");
   }
 });
@@ -190,7 +205,7 @@ habitForm.addEventListener("submit", async (e) => {
     habitForm.reset();
     fetchHabits();
   } catch (err) {
-    console.log(err);
+    alert("Failed to add habit.");
   }
 });
 
@@ -228,7 +243,7 @@ async function loadQuote() {
       <small class="text-muted">— ${data.author}</small>
     `;
   } catch (err) {
-    console.log(err);
+    alert("Failed to add habit.");
     document.getElementById("quoteBox").innerHTML =
       "Stay consistent. Keep building.";
   }
