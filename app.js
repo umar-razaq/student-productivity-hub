@@ -71,24 +71,20 @@ function renderTasks(tasks) {
 
     <div class="card-body d-flex flex-column">
 
-      <!-- Title -->
       <h5 class="mb-2 fw-semibold text-primary">
         ${task.title}
       </h5>
 
-      <!-- Badges row -->
       <div class="mb-2 d-flex flex-wrap gap-2">
         <span class="badge bg-secondary">${task.category}</span>
         <span class="badge bg-warning text-dark">${task.priority}</span>
         <span class="badge bg-success">${task.status}</span>
       </div>
 
-      <!-- Deadline -->
       <p class="mb-1 small text-muted">
         <strong class="text-dark">Deadline:</strong> ${task.deadline}
       </p>
 
-      <!-- Description -->
       <p class="text-muted mb-0 flex-grow-1">
         ${task.description}
       </p>
