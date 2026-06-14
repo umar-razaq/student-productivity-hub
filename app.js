@@ -18,46 +18,47 @@ let allTasks = [];
 let allHabits = [];
 
 async function fetchTasks() {
-  loading.classList.remove("d-none");
   error.classList.add("d-none");
+  error.textContent = "";
+  loading.classList.remove("d-none");
 
   try {
     const res = await fetch(TASK_API);
-    if (!res.ok) throw new Error("Failed to fetch tasks");
+    if (!res.ok) throw new Error();
 
     allTasks = await res.json();
     renderTasks(allTasks);
-  } catch (err) {
-    alert("Failed to add habit.");
+  } catch {
     error.classList.remove("d-none");
+    error.textContent = "Failed to fetch tasks.";
   } finally {
     loading.classList.add("d-none");
   }
 }
 
 async function fetchHabits() {
+  loading.classList.remove("d-none");
+  error.classList.add("d-none");
+
   try {
     const res = await fetch(HABIT_API);
-    if (!res.ok) throw new Error("Failed to fetch habits");
+    if (!res.ok) throw new Error();
 
     allHabits = await res.json();
     renderHabits(allHabits);
-  } catch (err) {
-    alert("Failed to add habit.");
+  } catch {
+    error.classList.remove("d-none");
+    error.textContent = "Failed to load habits.";
+  } finally {
+    loading.classList.add("d-none");
   }
 }
 
 function renderTasks(tasks) {
   taskContainer.innerHTML = "";
 
-  if (tasks.length === 0) {
-    taskContainer.innerHTML = `
-      <div class="col-12">
-        <div class="text-center py-5 text-muted">
-          <h5>No tasks found</h5>
-        </div>
-      </div>
-    `;
+  if (!tasks.length) {
+    taskContainer.innerHTML = `<div class="col-12 text-center text-muted py-4">No tasks found</div>`;
     return;
   }
 
@@ -65,22 +66,37 @@ function renderTasks(tasks) {
     taskContainer.insertAdjacentHTML(
       "beforeend",
       `
-      <div class="col-md-6 mb-4">
-        <div class="card shadow-sm h-100">
-          <div class="card-body">
+    <div class="col-md-6 mb-4">
+  <div class="card shadow-sm h-100 border-0 border-start border-4 border-primary">
 
-            <h5>${task.title}</h5>
+    <div class="card-body d-flex flex-column">
 
-            <p><strong>Category:</strong> ${task.category}</p>
-            <p><strong>Priority:</strong> ${task.priority}</p>
-            <p><strong>Status:</strong> ${task.status}</p>
-            <p><strong>Deadline:</strong> ${task.deadline}</p>
+      <!-- Title -->
+      <h5 class="mb-2 fw-semibold text-primary">
+        ${task.title}
+      </h5>
 
-            <p>${task.description}</p>
-
-          </div>
-        </div>
+      <!-- Badges row -->
+      <div class="mb-2 d-flex flex-wrap gap-2">
+        <span class="badge bg-secondary">${task.category}</span>
+        <span class="badge bg-warning text-dark">${task.priority}</span>
+        <span class="badge bg-success">${task.status}</span>
       </div>
+
+      <!-- Deadline -->
+      <p class="mb-1 small text-muted">
+        <strong class="text-dark">Deadline:</strong> ${task.deadline}
+      </p>
+
+      <!-- Description -->
+      <p class="text-muted mb-0 flex-grow-1">
+        ${task.description}
+      </p>
+
+    </div>
+
+  </div>
+</div>
     `,
     );
   });
@@ -89,14 +105,8 @@ function renderTasks(tasks) {
 function renderHabits(habits) {
   habitContainer.innerHTML = "";
 
-  if (habits.length === 0) {
-    habitContainer.innerHTML = `
-      <div class="col-12">
-        <div class="text-center py-5 text-muted">
-          <h5>No habits found</h5>
-        </div>
-      </div>
-    `;
+  if (!habits.length) {
+    habitContainer.innerHTML = `<div class="col-12 text-center text-muted py-4">No habits found</div>`;
     return;
   }
 
@@ -104,16 +114,23 @@ function renderHabits(habits) {
     habitContainer.insertAdjacentHTML(
       "beforeend",
       `
-      <div class="col-md-6 mb-3">
-        <div class="card border-success shadow-sm">
-          <div class="card-body">
+    <div class="col-md-6 mb-4">
+    <div class="card shadow-sm h-100 habit-card border-start border-4 border-success">
 
-            <h5 class="text-success">${habit.habitName}</h5>
-            <p><strong>Time:</strong> ${habit.habitTime}</p>
+    <div class="card-body">
 
-          </div>
-        </div>
-      </div>
+      <h5 class="habit-title text-success mb-2">
+        ${habit.habitName}
+      </h5>
+
+      <span class="badge bg-dark mb-2">
+        ${habit.habitTime}
+      </span>
+
+    </div>
+
+  </div>
+</div>
     `,
     );
   });
@@ -129,7 +146,8 @@ taskForm.addEventListener("submit", async (e) => {
   const deadlineVal = document.getElementById("deadline").value;
   const descriptionVal = document.getElementById("description").value.trim();
 
-  document.querySelectorAll(".text-danger")
+  document
+    .querySelectorAll(".text-danger")
     .forEach((el) => (el.textContent = ""));
 
   let ok = true;
@@ -138,22 +156,18 @@ taskForm.addEventListener("submit", async (e) => {
     document.getElementById("titleError").textContent = "Required";
     ok = false;
   }
-
   if (!categoryVal) {
     document.getElementById("categoryError").textContent = "Required";
     ok = false;
   }
-
   if (!priorityVal) {
     document.getElementById("priorityError").textContent = "Required";
     ok = false;
   }
-
   if (!statusVal) {
     document.getElementById("statusError").textContent = "Required";
     ok = false;
   }
-
   if (!deadlineVal) {
     document.getElementById("deadlineError").textContent = "Required";
     ok = false;
@@ -175,13 +189,13 @@ taskForm.addEventListener("submit", async (e) => {
       }),
     });
 
-    if (!res.ok) throw new Error("Task creation failed");
+    if (!res.ok) throw new Error();
 
     taskForm.reset();
     fetchTasks();
-  } catch (err) {
-    alert("Failed to add habit.");
+  } catch {
     error.classList.remove("d-none");
+    error.textContent = "Failed to add task.";
   }
 });
 
@@ -191,7 +205,21 @@ habitForm.addEventListener("submit", async (e) => {
   const habitName = document.getElementById("habitName").value.trim();
   const habitTime = document.getElementById("habitTime").value;
 
-  if (!habitName || !habitTime) return;
+  document.getElementById("habitNameError").textContent = "";
+  document.getElementById("habitTimeError").textContent = "";
+
+  let ok = true;
+
+  if (!habitName) {
+    document.getElementById("habitNameError").textContent = "Required";
+    ok = false;
+  }
+  if (!habitTime) {
+    document.getElementById("habitTimeError").textContent = "Required";
+    ok = false;
+  }
+
+  if (!ok) return;
 
   try {
     const res = await fetch(HABIT_API, {
@@ -200,12 +228,13 @@ habitForm.addEventListener("submit", async (e) => {
       body: JSON.stringify({ habitName, habitTime }),
     });
 
-    if (!res.ok) throw new Error("Habit creation failed");
+    if (!res.ok) throw new Error();
 
     habitForm.reset();
     fetchHabits();
-  } catch (err) {
-    alert("Failed to add habit.");
+  } catch {
+    error.classList.remove("d-none");
+    error.textContent = "Failed to add habit.";
   }
 });
 
@@ -234,16 +263,16 @@ fetchHabits();
 async function loadQuote() {
   try {
     const res = await fetch("https://dummyjson.com/quotes/random");
-    if (!res.ok) throw new Error("Quote API failed");
+    if (!res.ok) throw new Error();
 
     const data = await res.json();
 
-    document.getElementById("quoteBox").innerHTML = `
-      "${data.quote}" <br>
-      <small class="text-muted">— ${data.author}</small>
-    `;
-  } catch (err) {
-    alert("Failed to add habit.");
+    document.getElementById("quoteBox").innerHTML =
+      `"${data.quote}" <br><small class="text-muted">— ${data.author}</small>`;
+  } catch {
+    error.classList.remove("d-none");
+    error.textContent = "Failed to load quote.";
+
     document.getElementById("quoteBox").innerHTML =
       "Stay consistent. Keep building.";
   }

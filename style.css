@@ -2,14 +2,35 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/* base card */
 .card {
   border-radius: 10px;
+  transition: all 0.2s ease-in-out;
 }
 
-.task-card {
-  transition: 0.3s;
+/* TASK + HABIT CARDS ONLY (scoped styling) */
+.task-card,
+.habit-card {
+  transition: all 0.2s ease-in-out;
 }
 
-.task-card:hover {
-  transform: scale(1.02);
+/* hover effect ONLY for task/habit cards */
+.task-card:hover,
+.habit-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* optional clean badge spacing consistency */
+.badge {
+  margin-right: 4px;
+}
+
+/* better text hierarchy */
+.task-title {
+  font-weight: 600;
+}
+
+.habit-title {
+  font-weight: 600;
 }

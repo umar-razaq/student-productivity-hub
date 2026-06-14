@@ -17,14 +17,12 @@
   <body class="bg-white">
     <nav class="navbar navbar-dark bg-primary">
       <div class="container">
-        <span class="navbar-brand mb-0 h1"> Student Productivity Hub </span>
+        <span class="navbar-brand mb-0 h1">Student Productivity Hub</span>
 
         <div class="d-flex gap-2">
-          <a href="#tasksSection" class="btn btn-light btn-sm"> Tasks </a>
-
-          <a href="#habitsSection" class="btn btn-light btn-sm"> Habits </a>
-
-          <a href="admin.html" class="btn btn-warning btn-sm"> Admin Panel </a>
+          <a href="#tasksSection" class="btn btn-light btn-sm">Tasks</a>
+          <a href="#habitsSection" class="btn btn-light btn-sm">Habits</a>
+          <a href="admin.html" class="btn btn-warning btn-sm">Admin Panel</a>
         </div>
       </div>
     </nav>
@@ -104,20 +102,20 @@
 
                 <form id="habitForm">
                   <div class="mb-3">
-                    <input
-                      type="text"
-                      id="habitName"
-                      class="form-control"
-                      placeholder="Habit Name"
-                    />
+                    <label class="form-label">Habit Name</label>
+                    <input type="text" id="habitName" class="form-control" />
+                    <small class="text-danger" id="habitNameError"></small>
                   </div>
 
                   <div class="mb-3">
+                    <label class="form-label">Time</label>
                     <select id="habitTime" class="form-select">
+                      <option value="">Select Time</option>
                       <option value="Morning">Morning</option>
                       <option value="Afternoon">Afternoon</option>
                       <option value="Night">Night</option>
                     </select>
+                    <small class="text-danger" id="habitTimeError"></small>
                   </div>
 
                   <button class="btn btn-success w-100">Add Habit</button>
@@ -131,10 +129,11 @@
               <div class="card-body">
                 <div class="row">
                   <div class="col-md-4">
-                    <select id="filterStatus" class="form-select">
-                      <option value="">Filter by Status</option>
-                      <option>Pending</option>
-                      <option>Completed</option>
+                    <select id="filterCategory" class="form-select">
+                      <option value="">Filter by Category</option>
+                      <option>Study</option>
+                      <option>Health</option>
+                      <option>Personal</option>
                     </select>
                   </div>
 
@@ -148,39 +147,33 @@
                   </div>
 
                   <div class="col-md-4">
-                    <select id="filterCategory" class="form-select">
-                      <option value="">Filter by Category</option>
-                      <option>Study</option>
-                      <option>Health</option>
-                      <option>Personal</option>
+                    <select id="filterStatus" class="form-select">
+                      <option value="">Filter by Status</option>
+                      <option>Pending</option>
+                      <option>Completed</option>
                     </select>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div id="loading" class="alert alert-info d-none">
-              Loading tasks...
-            </div>
-
-            <div id="error" class="alert alert-danger d-none">
-              Something went wrong.
-            </div>
+            <div id="loading" class="alert alert-info d-none">Loading...</div>
+            <div id="error" class="alert alert-danger d-none"></div>
 
             <section id="tasksSection" class="mt-3">
-              <h3 class="mb-3">Your Tasks</h3>
+              <h3>Your Tasks</h3>
               <div class="row" id="taskContainer"></div>
             </section>
 
             <section id="habitsSection" class="mt-5">
-              <h3 class="mb-3">Your Habits</h3>
+              <h3>Your Habits</h3>
               <div class="row" id="habitContainer"></div>
             </section>
           </div>
         </div>
       </div>
     </main>
-    
+
     <script src="app.js"></script>
   </body>
 </html>

@@ -2,7 +2,6 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Admin Panel</title>
@@ -18,13 +17,16 @@
   <body class="bg-dark text-white">
     <nav class="navbar navbar-dark bg-black">
       <div class="container">
-        <span class="navbar-brand"> Admin Dashboard </span>
-
-        <a href="index.html" class="btn btn-warning"> User Panel </a>
+        <span class="navbar-brand">Admin Dashboard</span>
+        <a href="index.html" class="btn btn-warning">User Panel</a>
       </div>
     </nav>
 
     <main>
+      <div class="container my-3">
+        <div id="adminError" class="alert alert-danger d-none"></div>
+      </div>
+
       <div class="container my-4">
         <div class="row mb-4">
           <div class="col-md-4">
@@ -55,11 +57,88 @@
           </div>
         </div>
 
+        <h2 class="mt-5 mb-4 text-warning">Task Management</h2>
+
         <div class="row" id="adminTaskContainer"></div>
 
         <h2 class="mt-5 mb-4 text-warning">Habit Management</h2>
 
         <div class="row" id="adminHabitContainer"></div>
+      </div>
+
+      <div id="editBox" class="container my-4 d-none">
+        <div class="card bg-dark border-warning text-white">
+          <div class="card-body">
+            <h4 class="text-warning mb-3">Edit Item</h4>
+
+            <div id="taskEditFields">
+              <div class="mb-2">
+                <label>Title</label>
+                <input id="editTitle" class="form-control" />
+              </div>
+
+              <div class="mb-2">
+                <label>Status</label>
+                <select id="editStatus" class="form-select">
+                  <option>Pending</option>
+                  <option>Completed</option>
+                </select>
+              </div>
+
+              <div class="mb-2">
+                <label>Priority</label>
+                <select id="editPriority" class="form-select">
+                  <option>High</option>
+                  <option>Medium</option>
+                  <option>Low</option>
+                </select>
+              </div>
+
+              <div>
+                <label>Category</label>
+                <select id="editCategory" class="form-select">
+                  <option value="">Select Category</option>
+                  <option value="Study">Study</option>
+                  <option value="Health">Health</option>
+                  <option value="Personal">Personal</option>
+                </select>
+              </div>
+
+              <div class="mb-2">
+                <label>Deadline</label>
+                <input id="editDeadline" type="date" class="form-control" />
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <label>Description</label>
+              <textarea id="editDescription" class="form-control"></textarea>
+            </div>
+
+            <div id="habitEditFields" class="d-none">
+              <div class="mb-2">
+                <label>Habit Name</label>
+                <input id="editHabitName" class="form-control" />
+              </div>
+
+              <div class="mb-2">
+                <label>Time</label>
+                <select id="editHabitTime" class="form-select">
+                  <option>Morning</option>
+                  <option>Afternoon</option>
+                  <option>Night</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mt-3 d-flex gap-2">
+              <button id="saveEditBtn" class="btn btn-success">Save</button>
+              <button id="cancelEditBtn" class="btn btn-secondary">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </main>
 
